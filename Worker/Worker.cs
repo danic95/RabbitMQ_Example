@@ -24,7 +24,8 @@ channel.QueueDeclare(
     arguments: null
     );
 
-channel.BasicQos(prefetchSize: 0,)
+//garantizar que por cada worker solamente se envie un mensaje, por lo que mientras un worker no confirme la recepcion de un mensaje, este no reciba mas mensajes.
+channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
 
 Console.WriteLine(" [*] Esperando mensajes.");
 
